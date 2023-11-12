@@ -1,0 +1,13 @@
+.header__logo {
+  padding: 0;
+  margin: 0;
+  width: 142px;
+  margin-right: auto;
+}
+
+@media screen and (max-width:615px) {
+  .header__logo {
+    padding-left: 27px;
+    width: 104px;
+  }
+}

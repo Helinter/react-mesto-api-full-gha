@@ -1,0 +1,38 @@
+
+.sign-in__button {
+  color: black;
+  padding: 0;
+  background: white;
+  border: 0;
+  border-radius: 2px;
+  margin-top: 216px;
+  width: 358px;
+  height: 50px;
+  margin-bottom: 15px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  align-self: center;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.sign-in__button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 615px) {
+  .sign-in__button {
+    width: 238px;
+    height: 46px;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0;
+    margin-bottom: 25px;
+    margin-left: 22px;
+    margin-top: 15px;
+  }
+}

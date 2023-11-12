@@ -1,0 +1,10 @@
+.element{
+  width: 282px;
+  display: flex;
+  flex-wrap: wrap;
+  background: #FFFFFF;
+  border-radius: 10px;
+  align-items:baseline;
+  padding-bottom: 25px;
+  position: relative;
+}

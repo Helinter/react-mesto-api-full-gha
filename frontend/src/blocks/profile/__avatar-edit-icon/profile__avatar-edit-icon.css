@@ -1,0 +1,25 @@
+.profile__avatar-edit-icon {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: none;
+  outline: none;
+  position: absolute;
+  top: 50%;
+  left: 43%;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  background-image: url(../../../images/Vector1.png);
+  background-size: cover;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.3s;
+}
+
+@media screen and (max-width: 615px) {
+  .profile__avatar-edit-icon {
+    top:44%;
+  }
+}

@@ -1,0 +1,30 @@
+.error {
+  font-size: 12px;
+  line-height: 15px;
+  color: red;
+  display: block;
+  margin: 0;
+  box-sizing: border-box;
+  height: 25px;
+  position: absolute;
+  top: 197px;
+  left: 36px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+}
+
+.error:first-child {
+  top: 140px;
+}
+
+@media screen and (max-width: 615px) {
+  .error {
+    top: 207px;
+    left: 22px;
+  }
+
+  .error:first-child {
+    top: 150px;
+  }
+}

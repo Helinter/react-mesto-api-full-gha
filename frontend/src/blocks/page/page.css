@@ -1,0 +1,25 @@
+.page {
+  min-width: 1280px;
+  max-width: 1280px;
+  background-color: black;
+  margin: auto;
+
+}
+
+@media screen and (max-width: 1279px) {
+  .page {
+    min-width: 880px;
+  }
+}
+
+@media screen and (max-width: 879px) {
+  .page {
+    min-width: 598px;
+  }
+}
+
+@media screen and (max-width: 597px) {
+  .page {
+    min-width: 320px;
+  }
+}
