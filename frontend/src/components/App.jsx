@@ -14,7 +14,6 @@ import Modal from './Modal';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import  { setCurrentUser } from '../actions/currentUserActions';
-import { setToken } from './TokenHelper';
 
 
 

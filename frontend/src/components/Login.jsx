@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authApi } from "./AuthApi"; 
+import Header from './Header';
 import { setToken } from "./TokenHelper";
 import { setCurrentUser } from '../actions/currentUserActions'; // Импортируем действие для обновления текущего пользователя
 
@@ -51,6 +52,8 @@ function Login() {
   
   
   return (
+    <>
+    <Header linkTo="/sign-up" linkName="зарегистрироваться" email=" " />
     <div className="sign-in">
       <h2 className="sign-in__header">Вход</h2>
       <form onSubmit={handleLogin}>
@@ -81,6 +84,7 @@ function Login() {
         </button>
       </form>
     </div>
+    </>
   );
 }
 
