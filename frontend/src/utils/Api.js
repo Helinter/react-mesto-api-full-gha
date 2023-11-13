@@ -17,27 +17,31 @@ export class Api {
 
   // Метод для обновления заголовков с токеном
   _updateHeaders() {
-    this.headers = {
+    return {
       ...this.headers,
       'Authorization': `Bearer ${getToken()}`,
     };
   }
+  
 
   // Метод для получения карточек с сервера
   async getCards() {
-    this._updateHeaders();
+    const token = sessionStorage.getItem('token');
+  
+    if (!token) {
+      return Promise.reject('Токен отсутствует');
+    }
     const res = await fetch(`${this.url}/cards`, {
-      headers: this.headers
+      headers: this._updateHeaders(),
     });
     return this._checkResponse(res);
   }
 
   // Метод для добавления новой карточки на сервер
   async addCard(name, link) {
-    this._updateHeaders();
     const res = await fetch(`${this.url}/cards`, {
       method: 'POST',
-      headers: this.headers,
+      headers: this._updateHeaders(),
       body: JSON.stringify({
         name: name,
         link: link
@@ -48,10 +52,10 @@ export class Api {
 
   // Метод для обновления информации о пользователе на сервере
   async updateProfile(name, about) {
-    this._updateHeaders();
+   
     const res = await fetch(`${this.url}/users/me`, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: this._updateHeaders(),
       body: JSON.stringify({
         name: name,
         about: about
@@ -72,10 +76,7 @@ export class Api {
   
     const res = await fetch(`${this.url}/users/me`, {
       method: 'GET',
-      headers: {
-        ...this.headers,
-        Authorization: `Bearer ${token}`, // Передача токена в заголовке запроса
-      },
+      headers: this._updateHeaders(),
     });
   
     if (res.ok) {
@@ -88,29 +89,27 @@ export class Api {
 
   // Метод для удаления карточки с сервера
   async deleteCard(cardId) {
-    this._updateHeaders();
+   
     const res = await fetch(`${this.url}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this.headers
+      headers: this._updateHeaders(),
     });
     return this._checkResponse(res);
   }
 
   async changeLikeCardStatus(cardId, isLiked) {
-    this._updateHeaders();
     const method = isLiked ? 'PUT' : 'DELETE';
     const res = await fetch(`${this.url}/cards/${cardId}/likes`, {
       method,
-      headers: this.headers
+      headers: this._updateHeaders(),
     });
     return this._checkResponse(res);
   }
 
   async updateAvatar(avatarLink) {
-    this._updateHeaders();
     const res = await fetch(`${this.url}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: this._updateHeaders(),
       body: JSON.stringify({
         avatar: avatarLink
       })

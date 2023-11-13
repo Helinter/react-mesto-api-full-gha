@@ -1,11 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, {  useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import addButton from '../images/add-button.svg';
 import Card from './Card';
 import Header from './Header';
+import { api } from '../utils/Api';
 import Footer from './Footer';
+import  { setCurrentUser } from '../actions/currentUserActions';
 
 function Main({
+  setCards,
   onEditProfile,
   onAddPlace,
   onEditAvatar,
@@ -15,8 +18,41 @@ function Main({
   onCardDelete,
 }) {
   // Используйте useSelector для получения данных о пользователе из Redux
-  const currentUser = useSelector(state => state.currentUser);
 
+  const currentUser = useSelector(state => state.currentUser);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Пытаемся получить данные из sessionStorage
+    const storedUser = sessionStorage.getItem('currentUser');
+  
+    // Если данные есть, диспатчим их в Redux
+    if (storedUser) {
+      const userData = JSON.parse(storedUser);
+      dispatch(setCurrentUser(userData));
+    } else {
+      // Иначе делаем запрос к серверу
+      api.getUserInfo()
+        .then((userData) => {
+          dispatch(setCurrentUser(userData));
+          sessionStorage.setItem('currentUser', JSON.stringify(userData));
+        })
+        .catch((error) => {
+          console.error('Ошибка при загрузке данных пользователя:', error);
+        });
+    }
+  
+    // Получаем и диспатчим карточки
+    api.getCards()
+      .then((cardsData) => {
+        setCards(cardsData);
+      })
+      .catch((error) => {
+        console.error('Ошибка при загрузке карточек:', error);
+      });
+  }, []);
+  
+  
   return (
     <>
       <Header linkTo="/sign-in" linkName="Выйти" email={currentUser.email}/>

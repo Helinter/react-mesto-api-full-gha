@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Main from './Main';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 import { api } from '../utils/Api';
-import { authApi } from './AuthApi';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
@@ -34,23 +33,6 @@ function App() {
   const currentUser = useSelector(state => state.currentUser);
   const dispatch = useDispatch();
   
-  useEffect(() => {
-    Promise.all([authApi.getUserInfo(), api.getCards()])
-      .then(([userData, cardsData]) => {
-        if (userData) {
-          dispatch(setCurrentUser(userData));
-          sessionStorage.setItem('currentUser', JSON.stringify(userData));
-        }
-        setCards(cardsData);
-      })
-      .catch((error) => {
-        console.error('Ошибка при загрузке данных:', error);
-      });
-  }, []);
-  
-
-
-  
   const handleUpdateAvatar = (newAvatar) => {
     api.updateAvatar(newAvatar)
       .then((updatedUser) => {
@@ -77,9 +59,6 @@ function App() {
     }
   };
   
-  
-
-   
 
   const handleLikeClick = (card) => {
     const isLiked = card.likes.some(i => i === currentUser._id);
@@ -143,17 +122,12 @@ function App() {
 
 
 
-  const closeAllPopups = (callback) => {
+  const closeAllPopups = () => {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setDeletePopupOpen(false);
     setImagePopupOpen(false);
-  
-    // Вызываем callback, если он передан
-    if (callback) {
-      callback();
-    }
   };
   
 
@@ -171,6 +145,7 @@ function App() {
           />} />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/" element={<ProtectedRouteElement element={Main}
+            setCards={setCards}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
