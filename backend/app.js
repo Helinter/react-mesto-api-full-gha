@@ -1,12 +1,20 @@
 const express = require('express');
+
+const cors = require('cors');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const handleErrors = require('./middlewares/errorMiddleware'); // Импортируем мидлвэр для обработки ошибок
+const { requestLogger, errorLogger } = require('./logger/logger');
 
 const app = express();
+
+app.use(cors());
+
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/mestodb';
+
+app.use(requestLogger);
 
 app.use(helmet());
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -20,6 +28,12 @@ app.use(userRouter);
 const cardRouter = require('./routes/cards');
 
 app.use(cardRouter);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 // Роут для логина
 app.post('/signin', userController.login);
@@ -37,6 +51,7 @@ app.use((req, res, next) => {
 
 // Подключаем мидлвэр для обработки ошибок
 app.use(handleErrors);
+app.use(errorLogger);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
