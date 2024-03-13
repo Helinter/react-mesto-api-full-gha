@@ -1,20 +1,19 @@
-#Проект Mesto (FullStack)
+**Проект Mesto (FullStack)**
 
-JavaScript
-HTML5
-CSS
-React
-Redux
-Node.js
-Express.js
-MongoDB
-REST API
+*FullStack проект Mesto для обмена фотографиями*
 
+Реализованный функционал:
 
-Адрес репозитория: https://github.com/Helinter/react-mesto-api-full-gha.git
+-регистрация и авторизация на React.
 
-## Ссылки на проект
+-редактирование данных пользователя (имя, аватар, почта), добавление фотографий, кнопка логаута.
 
-Frontend https://daragan.dev.nomoredomainsmonster.ru/
+-лента фотографий всех пользователей.
 
-Backend https://api.daragan.dev.nomoredomainsmonster.ru/
+-пользователи могут ставить лайки фотографиям друг-друга. пользователь может удалять свои фотографии.
+
+-просмотр фоторгафий через попап при клике по фотографии.
+
+Используемые технологии:
+
+**JavaScript, React.js, Node.js, Express.js, MongoDB, HTML5, CSS**
