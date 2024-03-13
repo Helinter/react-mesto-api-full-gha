@@ -1,5 +1,4 @@
-# react-mesto-api-full
-Проект Mesto (FullStack)
+#Проект Mesto (FullStack)
 
 JavaScript
 HTML5
